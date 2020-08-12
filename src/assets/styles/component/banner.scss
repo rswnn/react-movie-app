@@ -1,0 +1,30 @@
+.banner {
+  &_height {
+    // height: 500px;
+    position: relative;
+
+    /* Full height */
+    height: 100%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.99;
+    box-shadow: 0 8px 15px 0 rgba(67, 97, 154, 0.09);
+  }
+  &_bg-img {
+    padding: 5rem 0;
+    position: relative;
+    bottom: 90%;
+    background-image: linear-gradient(
+      to right,
+      rgb(63, 65, 64) 150px,
+      rgba(43, 44, 44, 0.84) 100%
+    );
+    // left: 5%;
+  }
+  &_overview {
+    width: 400px;
+  }
+}

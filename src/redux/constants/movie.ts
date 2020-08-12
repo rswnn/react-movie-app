@@ -1,0 +1,2 @@
+export const MOVIE_NOW_PLAYING = "MOVIE_NOW_PLAYING";
+export const MOVIE_SIMILAR = "MOVIE_SIMILAR";

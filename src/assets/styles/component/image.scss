@@ -1,0 +1,12 @@
+.img-custom {
+  height: 400px;
+  overflow: hidden;
+}
+
+.img-custom-zoom img {
+  transition: transform 0.5s ease;
+}
+
+.img-custom-zoom:hover img {
+  transform: scale(1.5);
+}
