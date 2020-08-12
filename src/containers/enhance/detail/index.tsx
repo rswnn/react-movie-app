@@ -1,6 +1,5 @@
 import React from "react";
 import Detail from "../../pages/detail";
-import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { onSimilarMNovie, onSimilarMovieReset } from "../../../redux/actions";
@@ -40,7 +39,6 @@ const render = (props: ListMovieSimilarPageProps) => {
 };
 
 const enhance = compose<React.ComponentClass>(
-  // withRouter,
   connect(mapStateToProps, mapDispatchToProps)
 );
 

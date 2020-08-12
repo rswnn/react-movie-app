@@ -23,6 +23,7 @@ const ScrollArrow = () => {
       onClick={scrollTop}
       style={{ height: 40, display: showScroll ? "flex" : "none" }}
       src={require("../../assets/svg/up.svg")}
+      alt="arrow"
     />
   );
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { ListMoviePageProps } from "../../enhance/dashboard";
 import useInfiniteScroll from "../../../utils/infinite-scroll/use-infinite-scroll";
 import { ResultEntity } from "../../../redux/reducers/movie/list";
@@ -10,6 +10,7 @@ import Card from "../../../components/card/card";
 import Container from "../../../components/container/container";
 import Subtitle from "../../../components/subtitle/subtitle";
 import CardSkelton from "../../../components/card-skelton/card-skelton";
+import Empty from "../../../components/empty/empty";
 
 const { width } = window.screen;
 
@@ -64,7 +65,7 @@ const Index = ({ lists, onNowPlayingMovie }: ListMoviePageProps) => {
   return (
     <>
       <Container>
-        <Subtitle title="Now Playing" />
+        {item && <Subtitle title="Now Playing" />}
         <div className="row">
           {results &&
             item?.map(
@@ -94,7 +95,7 @@ const Index = ({ lists, onNowPlayingMovie }: ListMoviePageProps) => {
           {isFetching && item.length !== 0 ? (
             <CardSkelton array={width >= 768 ? 4 : 1} />
           ) : (
-            ""
+            <Empty />
           )}
         </div>
       </Container>

@@ -11,6 +11,7 @@ import Subtitle from "../../../components/subtitle/subtitle";
 import useInfiniteScroll from "../../../utils/infinite-scroll/use-infinite-scroll";
 import Banner from "../../../components/banner/banner";
 import CardSkelton from "../../../components/card-skelton/card-skelton";
+import Empty from "../../../components/empty/empty";
 
 const { width } = window.screen;
 interface Location {
@@ -99,7 +100,7 @@ const Index = ({
             {isFetching && item.length !== 0 ? (
               <CardSkelton array={width >= 768 ? 4 : 1} />
             ) : (
-              ""
+              <Empty message="Not available similar movie" />
             )}
           </div>
         </Container>

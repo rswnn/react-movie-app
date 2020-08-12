@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 interface Props {
   array: number;
@@ -14,8 +14,8 @@ const CardSkelton = ({ array }: Props) => {
             <div className={`card skelton`}>
               <div className="img-custom" />
               <div className="card-body">
-                <h5 className="card-title"></h5>
-                <span className="card-text"></span>
+                <div className="card-title" />
+                <span className="card-text" />
               </div>
             </div>
           </div>

@@ -1,6 +1,5 @@
 import React from "react";
 import Dashboard from "../../pages/dashboard";
-import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { onNowPlayingMovie } from "../../../redux/actions";
@@ -37,7 +36,6 @@ const render = (props: ListMoviePageProps) => {
 };
 
 const enhance = compose<React.ComponentClass>(
-  // withRouter,
   connect(mapStateToProps, mapDispatchToProps)
 );
 
