@@ -3,32 +3,35 @@ import Detail from "../../pages/detail";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { onNowPlayingMovie } from "../../../redux/actions";
+import { onSimilarMNovie, onSimilarMovieReset } from "../../../redux/actions";
 import ReduxState, {
   ListMovieInitialState,
 } from "../../../redux/reducers/redux-state";
 
-interface ListMovieDispatchState {
+interface ListMovieSimilarDispatchState {
   lists: ListMovieInitialState;
 }
 
-interface ProductDispatchProps {
-  onNowPlayingMovie: (page: number) => void;
+interface MovieSimilarDipatchProps {
+  onSimilarMNovie: (page: number, movie_id: number) => void;
+  onSimilarMovieReset: () => void;
 }
 
-export type ListMoviePageProps = ListMovieDispatchState & ProductDispatchProps;
+export type ListMovieSimilarPageProps = ListMovieSimilarDispatchState &
+  MovieSimilarDipatchProps;
 
-const mapStateToProps = (state: ReduxState): ListMovieDispatchState => {
+const mapStateToProps = (state: ReduxState): ListMovieSimilarDispatchState => {
   return {
     lists: state.movie,
   };
 };
 
-const mapDispatchToProps: ProductDispatchProps = {
-  onNowPlayingMovie,
+const mapDispatchToProps: MovieSimilarDipatchProps = {
+  onSimilarMNovie,
+  onSimilarMovieReset,
 };
 
-const render = (props: ListMoviePageProps) => {
+const render = (props: ListMovieSimilarPageProps) => {
   return (
     <>
       <Detail {...props} />

@@ -11,45 +11,50 @@ import Container from "../../../components/container/container";
 import Subtitle from "../../../components/subtitle/subtitle";
 
 const Index = ({ lists, onNowPlayingMovie }: ListMoviePageProps) => {
-  const { item, setItem, setPageContext, pageContext } = usePage();
+  const {
+    item,
+    setItem,
+    setPageContext,
+    pageContext,
+    oldPage,
+    setOldPage,
+  } = usePage();
   const [isFetching, setIsFetching] = useInfiniteScroll(fetchMoreListItems);
-  const [page, setPage] = useState(1);
   const { results } = lists.lists;
   const { total_pages } = lists.lists;
   let history = useHistory();
   useEffect(() => {
-    let init = pageContext === 1 ? 1 : pageContext + 1;
-    onNowPlayingMovie(init);
-    setPageContext(init);
+    if (item.length === 0) {
+      onNowPlayingMovie(pageContext);
+      setPageContext(pageContext + 1);
+    }
   }, []);
 
   useEffect(() => {
-    setItem((prevState: ResultEntity[]) => {
-      if (prevState !== results) {
-        return [...prevState, ...results];
-      } else return prevState;
-    });
+    if (oldPage !== pageContext) {
+      setItem((prevState: ResultEntity[]) => {
+        if (prevState !== results) {
+          return [...prevState, ...results];
+        } else return prevState;
+      });
+    }
   }, [results]);
 
   function fetchMoreListItems() {
-    let increment;
     if (pageContext <= total_pages) {
-      increment = pageContext + 1;
-      setPageContext(increment);
-      onNowPlayingMovie(increment);
-      setPage(increment);
+      onNowPlayingMovie(pageContext);
+      setPageContext(pageContext + 1);
     }
     setIsFetching(false);
   }
 
   function handleClick(data: ResultEntity) {
     history.push({
-      pathname: "/detail",
+      pathname: `/detail/${data.id}`,
       state: data,
     });
+    setOldPage(pageContext);
   }
-
-  console.log(item);
 
   return (
     <>
@@ -71,6 +76,7 @@ const Index = ({ lists, onNowPlayingMovie }: ListMoviePageProps) => {
                     title={res.title}
                     desc={res.overview}
                     date={res.release_date}
+                    shadow
                   >
                     <Image path={res.poster_path} rounded="rounded-top" />
                   </Card>

@@ -3,10 +3,10 @@ import { image_url } from "../../config";
 
 interface Props {
   path?: string;
-  rounded: string;
+  rounded?: string;
 }
 
-const Image = ({ path, rounded = "" }: Props) => {
+const Image = ({ path, rounded = "rounded" }: Props) => {
   return (
     <img
       className={`img-fluid img-custom img-custom-zoom ${rounded}`}

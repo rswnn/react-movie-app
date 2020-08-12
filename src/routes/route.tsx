@@ -9,9 +9,14 @@ import { ResultEntity } from "../redux/reducers/movie/list";
 const Routes = () => {
   const [pageContext, setPageContext] = useState<any>(1);
   const [item, setItem] = useState<ResultEntity[]>([]);
+  const [oldPage, setOldPage] = useState<any>(1);
 
   const setPageCurrent = (data: string) => {
     setPageContext(data);
+  };
+
+  const setOldPageCurrent = (data: string) => {
+    setOldPage(data);
   };
 
   const setItemCurrent = (data: ResultEntity[]) => {
@@ -24,13 +29,16 @@ const Routes = () => {
         setPageContext: setPageCurrent,
         item,
         setItem: setItemCurrent,
+        oldPage,
+        setOldPage: setOldPageCurrent,
       }}
     >
       <Router>
         <Header />
         <Switch>
           <Route exact path="/" component={Dashboard} />
-          <Route path="/detail" component={Detail} />
+          <Route path="/detail/:id" component={Detail} />
+          <Route component={Dashboard} />
           <Route />
         </Switch>
       </Router>

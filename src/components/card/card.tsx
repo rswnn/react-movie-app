@@ -6,11 +6,12 @@ type Props = {
   title: string;
   desc: string;
   date: string;
+  shadow?: boolean | false;
 };
 
-const Card = ({ children, title, date }: Props) => {
+const Card = ({ children, title, date, shadow = false }: Props) => {
   return (
-    <div className="shadow card mt-3 mb-3 rounded">
+    <div className={`shadow card mt-3 mb-3 rounded ${shadow && "card_shadow"}`}>
       {children}
       <div className="card-body">
         <h5 className="card-title">{trimOn(title, 15)}</h5>

@@ -1,8 +1,9 @@
 import { nowPlayingMovie, similarMovie } from "../../services/movie";
-import { useDispatch } from "react-redux";
-import { MOVIE_NOW_PLAYING, MOVIE_SIMILAR } from "../constants";
-
-// const dispatch = useDispatch();
+import {
+  MOVIE_NOW_PLAYING,
+  MOVIE_SIMILAR,
+  MOVIE_SIMILAR_RESET,
+} from "../constants";
 
 export const onNowPlayingMovie = (page: number = 1) => (dispatch: any) => {
   dispatch({
@@ -17,5 +18,11 @@ export const onSimilarMNovie = (page: number = 1, movie_id: number) => (
   dispatch({
     type: MOVIE_SIMILAR,
     payload: similarMovie(page, movie_id),
+  });
+};
+
+export const onSimilarMovieReset = () => (dispatch: any) => {
+  dispatch({
+    type: MOVIE_SIMILAR_RESET,
   });
 };

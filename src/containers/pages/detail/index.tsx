@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { ListMoviePageProps } from "../../enhance/dashboard";
+import { ListMovieSimilarPageProps } from "../../enhance/detail";
 import { ResultEntity } from "../../../redux/reducers/movie/list";
 import { useLocation } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 import Image from "../../../components/image/image";
 import Card from "../../../components/card/card";
@@ -14,57 +15,87 @@ interface Location {
   state: ResultEntity;
 }
 
-const Index = ({ lists, onNowPlayingMovie }: ListMoviePageProps) => {
+const Index = ({
+  lists,
+  onSimilarMNovie,
+  onSimilarMovieReset,
+}: ListMovieSimilarPageProps) => {
+  const { id } = useParams();
+  let history = useHistory();
   let location: Location = useLocation();
-  const [detail, setDetail] = useState<ResultEntity>();
   const [item, setItem] = useState<ResultEntity[]>([]);
+  const [page, setPage] = React.useState<number>();
   const [isFetching, setIsFetching] = useInfiniteScroll(fetchMoreListItems);
-  const [page, setPage] = useState(1);
-  const { results } = lists.lists;
-  const { total_pages } = lists.lists;
-  useEffect(() => {
-    setDetail(location.state);
-  }, []);
+  const { results } = lists.movie_similar;
+  const { total_pages } = lists.movie_similar;
+  const detail = location.state;
 
   useEffect(() => {
-    setItem((prevState) => {
+    if (detail) {
+      onSimilarMNovie(1, id);
+      setPage(1);
+    }
+    return () => {
+      setItem([]);
+      onSimilarMovieReset();
+    };
+  }, [detail]);
+
+  useEffect(() => {
+    setItem((prevState: ResultEntity[]) => {
       return [...prevState, ...results];
     });
   }, [results]);
 
   function fetchMoreListItems() {
-    let increment;
-    if (!lists.lists.loading) {
+    if (page) {
       if (page <= total_pages) {
-        increment = page + 1;
-        onNowPlayingMovie(increment);
-        setIsFetching(false);
-        setPage(increment);
+        console.log(total_pages);
+        if (detail) {
+          onSimilarMNovie(page + 1, id);
+        }
+        setPage(page + 1);
       }
     }
+    setIsFetching(false);
   }
+
+  const handleClick = (data: ResultEntity) => {
+    history.push({
+      pathname: `/detail/${data.id}`,
+      state: data,
+    });
+  };
 
   return (
     <>
       <Banner detail={detail && detail} />
-      <Container>
-        <Subtitle title="Similar Movie" />
-        {/* <div className="row">
-        {results &&
-          item?.map((res, index) => (
-            <div
-              className="col-md-3"
-              key={index}
-              onClick={() => alert(res.title)}
-            >
-              <Card title={res.title} desc={res.overview}>
-                <Image path={res.poster_path} />
-              </Card>
-            </div>
-          ))}
-        {lists.lists.loading && "Fetching more list items..."}
-      </div> */}
-      </Container>
+      {detail && (
+        <Container>
+          {item.length > 0 && <Subtitle title="Similar Movie" />}
+          <div className="row">
+            {results &&
+              item?.map((res: ResultEntity, index: number) => (
+                <div
+                  className="col-md-3"
+                  key={index}
+                  onClick={() => handleClick(res)}
+                >
+                  <Card
+                    title={res.title}
+                    desc={res.overview}
+                    date={res.release_date}
+                    shadow
+                  >
+                    <Image path={res.poster_path} rounded="rounded" />
+                  </Card>
+                </div>
+              ))}
+          </div>
+          {item.length === 0 && <h1>abis</h1>}
+        </Container>
+      )}
+      {lists.movie_similar.loading && "Fetching more list items..."}
     </>
   );
 };
