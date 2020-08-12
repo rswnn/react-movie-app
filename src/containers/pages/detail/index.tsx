@@ -90,7 +90,7 @@ const Index = ({
                     shadow
                     zoom
                   >
-                    <Image path={res.poster_path} rounded="rounded" />
+                    <Image path={res.poster_path} rounded="rounded-top" />
                   </Card>
                 </div>
               ))}
