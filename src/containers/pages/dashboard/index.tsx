@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ListMoviePageProps } from "../../enhance/dashboard";
-import useInfiniteScroll from "../../../components/infinite-scroll/use-infinite-scroll";
+import useInfiniteScroll from "../../../utils/infinite-scroll/use-infinite-scroll";
 import { ResultEntity } from "../../../redux/reducers/movie/list";
 import { useHistory } from "react-router-dom";
 import { usePage } from "../../../context/context";
@@ -9,6 +9,9 @@ import Image from "../../../components/image/image";
 import Card from "../../../components/card/card";
 import Container from "../../../components/container/container";
 import Subtitle from "../../../components/subtitle/subtitle";
+import CardSkelton from "../../../components/card-skelton/card-skelton";
+
+const { width } = window.screen;
 
 const Index = ({ lists, onNowPlayingMovie }: ListMoviePageProps) => {
   const {
@@ -31,12 +34,14 @@ const Index = ({ lists, onNowPlayingMovie }: ListMoviePageProps) => {
   }, []);
 
   useEffect(() => {
-    if (oldPage !== pageContext) {
-      setItem((prevState: ResultEntity[]) => {
-        if (prevState !== results) {
-          return [...prevState, ...results];
-        } else return prevState;
-      });
+    if (results) {
+      if (oldPage !== pageContext) {
+        setItem((prevState: ResultEntity[]) => {
+          if (prevState !== results) {
+            return [...prevState, ...results];
+          } else return prevState;
+        });
+      }
     }
   }, [results]);
 
@@ -77,6 +82,7 @@ const Index = ({ lists, onNowPlayingMovie }: ListMoviePageProps) => {
                     desc={res.overview}
                     date={res.release_date}
                     shadow
+                    zoom
                   >
                     <Image path={res.poster_path} rounded="rounded-top" />
                   </Card>
@@ -84,8 +90,14 @@ const Index = ({ lists, onNowPlayingMovie }: ListMoviePageProps) => {
               )
             )}
         </div>
+        <div className="row">
+          {isFetching && item.length !== 0 ? (
+            <CardSkelton array={width >= 768 ? 4 : 1} />
+          ) : (
+            ""
+          )}
+        </div>
       </Container>
-      {isFetching && "Fetching more list items..."}
     </>
   );
 };

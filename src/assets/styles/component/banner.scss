@@ -14,7 +14,7 @@
     box-shadow: 0 8px 15px 0 rgba(67, 97, 154, 0.09);
   }
   &_bg-img {
-    padding: 5rem 0;
+    padding: 2rem 0;
     position: relative;
     bottom: 90%;
     background-image: linear-gradient(
@@ -24,7 +24,58 @@
     );
     // left: 5%;
   }
+
+  &_title {
+    overflow: hidden;
+  }
+
+  &_title h2 {
+    width: 100%;
+    animation: 0.5s slide-left;
+    animation-delay: 0s;
+  }
   &_overview {
-    width: 400px;
+    width: 500px;
+    max-width: 500px;
+    overflow: hidden;
+    @media only screen and (max-width: 480px) {
+      width: 100%;
+    }
+  }
+  &_overview h3 {
+    animation: 1s slide-right;
+    animation-delay: 0s;
+  }
+  &_overview p {
+    width: 100%;
+    animation: 1.5s slide-right;
+    animation-delay: 0s;
+  }
+  &_slide-right {
+    overflow: hidden;
+  }
+
+  &_slide-right img {
+    animation: 0.5s slide-right;
+    animation-delay: 0s;
+  }
+
+  @keyframes slide-right {
+    from {
+      margin-left: -200px;
+    }
+
+    to {
+      margin-left: 0;
+    }
+  }
+  @keyframes slide-left {
+    from {
+      margin-left: 100%;
+    }
+
+    to {
+      margin-left: 0;
+    }
   }
 }

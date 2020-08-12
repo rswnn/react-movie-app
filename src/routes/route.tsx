@@ -5,6 +5,7 @@ import Header from "../components/header";
 import Detail from "../containers/enhance/detail";
 import { PageContext } from "../context/context";
 import { ResultEntity } from "../redux/reducers/movie/list";
+import ScrollArrow from "../components/scroll-to-top/scroll-to-top";
 
 const Routes = () => {
   const [pageContext, setPageContext] = useState<any>(1);
@@ -42,6 +43,7 @@ const Routes = () => {
           <Route />
         </Switch>
       </Router>
+      <ScrollArrow />
     </PageContext.Provider>
   );
 };

@@ -1,5 +1,12 @@
 .card {
+  cursor: pointer;
   &_shadow {
     box-shadow: 0 8px 15px 0 rgba(67, 97, 154, 0.09);
+  }
+  &_zoom {
+    transition: transform 0.2s; /* Animation */
+  }
+  &_zoom:hover {
+    transform: scale(1.05);
   }
 }

@@ -33,7 +33,7 @@ export default (
       return {
         ...state,
         lists: {
-          result: action.payload.response.data,
+          result: action.payload.response,
           loading: false,
         },
       };

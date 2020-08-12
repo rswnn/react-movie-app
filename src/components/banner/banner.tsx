@@ -2,6 +2,8 @@ import React from "react";
 import { ResultEntity } from "../../redux/reducers/movie/list";
 import { image_url } from "../../config";
 import Image from "../image/image";
+import { trimOn } from "../../helper/trim-string";
+const { width } = window.screen;
 
 interface Props {
   detail?: ResultEntity;
@@ -22,14 +24,22 @@ const Banner = ({ detail }: Props) => {
       >
         <div className="w-100" />
         <div className="banner_bg-img">
-          <div className="d-flex ml-5">
-            <Image path={detail?.poster_path} rounded="rounded" />
+          <div className={`${width >= 768 ? "d-flex ml-5" : "text-center"}`}>
+            <div className="banner_slide-right">
+              <Image path={detail?.poster_path} rounded="rounded" />
+            </div>
             <div className="text-light pt-5 pl-4">
-              <h2 className="font-weight-bold">{detail?.title}</h2>
+              <div className="banner_title">
+                <h2 className="font-weight-bold">{detail?.title}</h2>
+              </div>
               <p>{year}</p>
               <div className="banner_overview">
                 <h3 className="font-weight-bold">Overview</h3>
-                <p>{detail?.overview}</p>
+                <p>
+                  {width >= 768
+                    ? detail?.overview
+                    : trimOn(detail!!.overview, 100)}
+                </p>
               </div>
             </div>
           </div>

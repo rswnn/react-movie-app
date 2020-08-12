@@ -1,6 +1,10 @@
 .img-custom {
   height: 400px;
   overflow: hidden;
+
+  @media only screen and (max-width: 600px) {
+    // height: 250px;
+  }
 }
 
 .img-custom-zoom img {

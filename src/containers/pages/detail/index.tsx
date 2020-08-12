@@ -8,9 +8,11 @@ import Image from "../../../components/image/image";
 import Card from "../../../components/card/card";
 import Container from "../../../components/container/container";
 import Subtitle from "../../../components/subtitle/subtitle";
-import useInfiniteScroll from "../../../components/infinite-scroll/use-infinite-scroll";
+import useInfiniteScroll from "../../../utils/infinite-scroll/use-infinite-scroll";
 import Banner from "../../../components/banner/banner";
+import CardSkelton from "../../../components/card-skelton/card-skelton";
 
+const { width } = window.screen;
 interface Location {
   state: ResultEntity;
 }
@@ -86,16 +88,22 @@ const Index = ({
                     desc={res.overview}
                     date={res.release_date}
                     shadow
+                    zoom
                   >
                     <Image path={res.poster_path} rounded="rounded" />
                   </Card>
                 </div>
               ))}
           </div>
-          {item.length === 0 && <h1>abis</h1>}
+          <div className="row">
+            {isFetching && item.length !== 0 ? (
+              <CardSkelton array={width >= 768 ? 4 : 1} />
+            ) : (
+              ""
+            )}
+          </div>
         </Container>
       )}
-      {lists.movie_similar.loading && "Fetching more list items..."}
     </>
   );
 };
