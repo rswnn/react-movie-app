@@ -63,7 +63,7 @@ const Index = ({ lists, onNowPlayingMovie }: ListMoviePageProps) => {
   }
 
   return (
-    <>
+    <section>
       <Container>
         {item && <Subtitle title="Now Playing" />}
         <div className="row">
@@ -99,7 +99,7 @@ const Index = ({ lists, onNowPlayingMovie }: ListMoviePageProps) => {
           )}
         </div>
       </Container>
-    </>
+    </section>
   );
 };
 

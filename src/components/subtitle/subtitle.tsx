@@ -5,7 +5,7 @@ interface Props {
 }
 
 const Subtitle = ({ title }: Props) => {
-  return <h2 className="mt-5 font-weight-bold">{title}</h2>;
+  return <h2 className="mt-5 pt-3 font-weight-bold">{title}</h2>;
 };
 
 export default Subtitle;

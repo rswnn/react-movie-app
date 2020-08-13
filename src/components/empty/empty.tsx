@@ -1,19 +1,14 @@
 import React from "react";
 
-interface Props {
-  message?: string;
-}
-
-const Empty = ({ message = "" }: Props) => {
+const Empty = () => {
   return (
-    <div className="text-center opacity-custom mt-3">
+    <div className="text-center opacity-custom col">
       <img
         src={require("../../assets/svg/image.svg")}
-        width="100"
-        height="100"
+        width="70"
+        height="70"
         alt="Movie"
       />
-      <h3>{message}</h3>
     </div>
   );
 };

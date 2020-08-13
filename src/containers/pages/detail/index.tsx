@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import { ListMovieSimilarPageProps } from "../../enhance/detail";
 import { ResultEntity } from "../../../redux/reducers/movie/list";
 import { useLocation } from "react-router-dom";
@@ -100,7 +100,7 @@ const Index = ({
             {isFetching && item.length !== 0 ? (
               <CardSkelton array={width >= 768 ? 4 : 1} />
             ) : (
-              <Empty message="Not available similar movie" />
+              <Empty />
             )}
           </div>
         </Container>
